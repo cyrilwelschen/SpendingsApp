@@ -93,4 +93,6 @@
     <string name="dummy_category_text">Test text</string>
     <string name="dummy_spending_date">11. Jan 19</string>
     <string name="dummy_spending_amount">100.10</string>
+    <string name="user_input_category_label">Category:</string>
+    <string name="user_input_amount_label">Amount:</string>
 </resources>

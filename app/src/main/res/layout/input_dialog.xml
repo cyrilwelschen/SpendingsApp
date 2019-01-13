@@ -7,17 +7,29 @@
     android:padding="10dp" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/category_input_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type Your Message : "
+        android:text="@string/user_input_category_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/editTextDialogUserInput"
+        android:id="@+id/category_user_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
         <requestFocus />
     </EditText>
+
+    <TextView
+        android:id="@+id/amount_input_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_input_amount_label"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/amount_user_input"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

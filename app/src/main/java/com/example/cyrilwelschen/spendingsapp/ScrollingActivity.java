@@ -1,9 +1,10 @@
 package com.example.cyrilwelschen.spendingsapp;
 
 import android.content.DialogInterface;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -37,15 +37,7 @@ public class ScrollingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemCategories.add("new cat");
-                itemCreationDates.add("15.Jan 19");
-                itemSpendingAmount.add("1010.11");
-
                 askUserInput();
-                itemCategories.add("who");
-                itemCreationDates.add("15.Jan 19");
-                itemSpendingAmount.add("111.11");
-                initRecyclerView();
             }
         });
     }
@@ -58,7 +50,8 @@ public class ScrollingActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(dialogView);
 
-        final EditText userInput = dialogView.findViewById(R.id.editTextDialogUserInput);
+        final EditText userInputCategory = dialogView.findViewById(R.id.category_user_input);
+        final EditText userInputAmount = dialogView.findViewById(R.id.amount_user_input);
 
         // set dialog message
         alertDialogBuilder
@@ -66,9 +59,10 @@ public class ScrollingActivity extends AppCompatActivity {
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                itemCategories.add(userInput.getText().toString());
-                                itemCreationDates.add("11.Feb 19");
-                                itemSpendingAmount.add("120");
+                                itemCategories.add(userInputCategory.getText().toString());
+                                itemSpendingAmount.add(userInputAmount.getText().toString());
+                                String dateStamp = currentDateDisplay();
+                                itemCreationDates.add(dateStamp);
                                 initRecyclerView();
                             }
                         })
@@ -81,6 +75,12 @@ public class ScrollingActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    public String currentDateDisplay(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd. MMM, HH:mm");
+        return dateFormat.format(calendar.getTime());
     }
 
     public void initMyList() {
