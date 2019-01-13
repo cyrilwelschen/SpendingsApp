@@ -5,20 +5,54 @@
     android:padding="15dp">
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/image"
+        android:id="@+id/category_image"
         android:src="@mipmap/ic_launcher"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
 
     <TextView
-        android:id="@+id/image_name"
+        android:id="@+id/categories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test text"
-        android:layout_toEndOf="@+id/image"
+        android:text="@string/dummy_category_text"
+        android:layout_toEndOf="@+id/category_image"
+        android:textColor="#4c4c4c"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/spending_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dummy_spending_date"
+        android:layout_toEndOf="@+id/category_image"
+        android:textColor="#ababab"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/spending_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dummy_spending_amount"
+        android:layout_toEndOf="@+id/category_image"
+        android:textColor="#000"
+        android:layout_marginStart="130dp"
+        android:layout_marginEnd="33dp"
+        android:layout_centerVertical="true"
+        android:textAlignment="textEnd"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CHF"
         android:textColor="#000"
         android:layout_centerVertical="true"
-        android:layout_marginStart="30dp"
-        android:textSize="17sp"/>
+        android:paddingTop="5dp"
+        android:textAlignment="textEnd"
+        android:textSize="15sp"/>
 
 </RelativeLayout>

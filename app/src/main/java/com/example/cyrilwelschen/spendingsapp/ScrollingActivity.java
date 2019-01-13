@@ -15,7 +15,9 @@ import java.util.ArrayList;
 
 public class ScrollingActivity extends AppCompatActivity {
 
-    ArrayList<String> myList = new ArrayList<>();
+    ArrayList<String> itemCategories = new ArrayList<>();
+    ArrayList<String> itemCreationDates = new ArrayList<>();
+    ArrayList<String> itemSpendingAmount = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +39,32 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     public void initMyList() {
-        myList.add("one");
-        myList.add("one");
-        myList.add("one");
-        myList.add("one");
-        myList.add("one");
-        myList.add("one");
+        itemCategories.add("one");
+        itemCreationDates.add("11.Feb 19");
+        itemSpendingAmount.add("120");
+        itemCategories.add("two");
+        itemCreationDates.add("12.Feb 19");
+        itemSpendingAmount.add("120.40");
+        itemCategories.add("one");
+        itemCreationDates.add("11.Feb 19");
+        itemSpendingAmount.add("7.50");
+        itemCategories.add("one");
+        itemCreationDates.add("11.Feb 19");
+        itemSpendingAmount.add("120");
+        itemCategories.add("one");
+        itemCreationDates.add("11.Feb 19");
+        itemSpendingAmount.add("120");
+        itemCategories.add("one");
+        itemCreationDates.add("11.Feb 19");
+        itemSpendingAmount.add("11");
 
         initRecyclerView();
     }
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
-        MyAdapter adapter = new MyAdapter(this, myList);
+        MyAdapter adapter = new MyAdapter(this, itemCategories,
+                itemCreationDates, itemSpendingAmount);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

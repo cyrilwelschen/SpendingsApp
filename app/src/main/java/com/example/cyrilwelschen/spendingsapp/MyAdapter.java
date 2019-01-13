@@ -16,12 +16,17 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    private ArrayList<String> mImageNames = new ArrayList<>();
     private Context mContext;
+    private ArrayList<String> mSpendingCategories = new ArrayList<>();
+    private ArrayList<String> mSpendingDates = new ArrayList<>();
+    private ArrayList<String> mSpendingAmounts = new ArrayList<>();
 
-    public MyAdapter(Context mContext, ArrayList<String> mImageNames) {
-        this.mImageNames = mImageNames;
+    public MyAdapter(Context mContext, ArrayList<String> mSpendingCategories,
+                     ArrayList<String> mSpendingDates, ArrayList<String> mSpendingAmounts) {
         this.mContext = mContext;
+        this.mSpendingCategories = mSpendingCategories;
+        this.mSpendingDates = mSpendingDates;
+        this.mSpendingAmounts = mSpendingAmounts;
     }
 
     @Override
@@ -33,22 +38,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.mTextView.setText(mImageNames.get(position));
-        //holder.parentLayout.setOnClickListener()
+        holder.mCategory.setText(mSpendingCategories.get(position));
+        holder.mDate.setText(mSpendingDates.get(position));
+        holder.mAmount.setText(mSpendingAmounts.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mImageNames.size();
+        return mSpendingCategories.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mTextView;
+        TextView mCategory;
+        TextView mDate;
+        TextView mAmount;
 
         public MyViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.image_name);
+            mCategory = v.findViewById(R.id.categories);
+            mDate = v.findViewById(R.id.spending_date);
+            mAmount = v.findViewById(R.id.spending_amount);
         }
     }
 }
