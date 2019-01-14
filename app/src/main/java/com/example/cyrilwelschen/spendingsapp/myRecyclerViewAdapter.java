@@ -14,15 +14,15 @@ import java.util.ArrayList;
  * Adapter to implement RecyclerView
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
     private ArrayList<String> mSpendingCategories = new ArrayList<>();
     private ArrayList<String> mSpendingDates = new ArrayList<>();
     private ArrayList<String> mSpendingAmounts = new ArrayList<>();
 
-    public MyAdapter(Context mContext, ArrayList<String> mSpendingCategories,
-                     ArrayList<String> mSpendingDates, ArrayList<String> mSpendingAmounts) {
+    public myRecyclerViewAdapter(Context mContext, ArrayList<String> mSpendingCategories,
+                                 ArrayList<String> mSpendingDates, ArrayList<String> mSpendingAmounts) {
         this.mContext = mContext;
         this.mSpendingCategories = mSpendingCategories;
         this.mSpendingDates = mSpendingDates;

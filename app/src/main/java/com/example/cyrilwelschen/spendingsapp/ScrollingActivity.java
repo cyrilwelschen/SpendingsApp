@@ -108,7 +108,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
-        MyAdapter adapter = new MyAdapter(this, itemCategories,
+        myRecyclerViewAdapter adapter = new myRecyclerViewAdapter(this, itemCategories,
                 itemCreationDates, itemSpendingAmount);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
