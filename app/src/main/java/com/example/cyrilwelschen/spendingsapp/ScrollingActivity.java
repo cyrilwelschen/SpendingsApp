@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,8 @@ public class ScrollingActivity extends AppCompatActivity {
     ArrayList<String> itemCreationDates = new ArrayList<>();
     ArrayList<String> itemSpendingAmount = new ArrayList<>();
 
+    DatabaseHelper amountDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,7 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initMyList();
+        amountDB = new DatabaseHelper(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +44,17 @@ public class ScrollingActivity extends AppCompatActivity {
                 askUserInput();
             }
         });
+    }
+
+    public void addToDatabase(String cat, String date, float amount, String comment){
+        boolean insertionSuccessful = amountDB.addData(cat, date, amount, comment);
+        if (insertionSuccessful){
+            Toast.makeText(this, "Data insertion successful",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Data insertion failed!",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void askUserInput() {
@@ -63,7 +78,9 @@ public class ScrollingActivity extends AppCompatActivity {
                                 itemSpendingAmount.add(userInputAmount.getText().toString());
                                 String dateStamp = currentDateDisplay();
                                 itemCreationDates.add(dateStamp);
+                                // todo: continue here with adding right format stuff to db
                                 initRecyclerView();
+                                // addToDatabase();
                             }
                         })
                 .setNegativeButton("Cancel",
