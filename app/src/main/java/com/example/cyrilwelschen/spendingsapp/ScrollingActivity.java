@@ -1,5 +1,6 @@
 package com.example.cyrilwelschen.spendingsapp;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
@@ -52,7 +53,7 @@ public class ScrollingActivity extends AppCompatActivity {
     public void askUserInput() {
         // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(this);
-        View dialogView = li.inflate(R.layout.input_dialog, null);
+        @SuppressLint("InflateParams") View dialogView = li.inflate(R.layout.input_dialog, null);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(dialogView);
@@ -71,7 +72,7 @@ public class ScrollingActivity extends AppCompatActivity {
                                 String amountString = userInputAmount.getText().toString();
                                 float amount = Float.parseFloat(amountString);
 
-                                addToDatabase(category, dateSQLiteStamp, amount, null);
+                                addToDatabase(category, dateSQLiteStamp, amount);
                                 loadSpendings();
                             }
                         })
@@ -86,8 +87,8 @@ public class ScrollingActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void addToDatabase(String cat, String date, float amount, String comment) {
-        boolean insertionSuccessful = amountDB.addData(cat, date, amount, comment);
+    public void addToDatabase(String cat, String date, float amount) {
+        boolean insertionSuccessful = amountDB.addData(cat, date, amount, null);
         if (insertionSuccessful) {
             Toast.makeText(this, "Data insertion successful",
                     Toast.LENGTH_SHORT).show();
@@ -97,13 +98,13 @@ public class ScrollingActivity extends AppCompatActivity {
         }
     }
 
-    public String convertSQLiteDateToDisplay(String sqliteDateFormat){
+    public String convertSQLiteDateToDisplay(String sqLiteDateFormat){
         // todo: simplify this method
         SimpleDateFormat displayDateFormat = new SimpleDateFormat("dd. MMM, HH:mm");
-        SimpleDateFormat sqliteDate = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss.SSS");
+        SimpleDateFormat sqLiteDate = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss.SSS");
         Date date = new Date(12234);
         try {
-            date = sqliteDate.parse(sqliteDateFormat);
+            date = sqLiteDate.parse(sqLiteDateFormat);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -153,14 +154,14 @@ public class ScrollingActivity extends AppCompatActivity {
             if (fractionUnit.length() == 1) {
                 fractionUnit = parts[1] + "0";
             }
-            wholeUnit = hiphonTousands(wholeUnit);
+            wholeUnit = hyphenThousand(wholeUnit);
             return wholeUnit + "." + fractionUnit;
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
-            return  hiphonTousands(floatAsString);
+            return  hyphenThousand(floatAsString);
         }
     }
 
-    private String hiphonTousands(String amountString) {
+    private String hyphenThousand(String amountString) {
         String result = amountString;
         if (amountString.length() > 3) {
             switch (amountString.length()) {
@@ -180,7 +181,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private void reloadRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
-        myRecyclerViewAdapter adapter = new myRecyclerViewAdapter(this, itemCategories,
+        myRecyclerViewAdapter adapter = new myRecyclerViewAdapter(itemCategories,
                 itemCreationDates, itemSpendingAmount);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

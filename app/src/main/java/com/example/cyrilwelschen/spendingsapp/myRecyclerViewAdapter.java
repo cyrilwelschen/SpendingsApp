@@ -1,6 +1,5 @@
 package com.example.cyrilwelschen.spendingsapp;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +15,12 @@ import java.util.ArrayList;
 
 public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.MyViewHolder> {
 
-    private Context mContext;
     private ArrayList<String> mSpendingCategories = new ArrayList<>();
     private ArrayList<String> mSpendingDates = new ArrayList<>();
     private ArrayList<String> mSpendingAmounts = new ArrayList<>();
 
-    public myRecyclerViewAdapter(Context mContext, ArrayList<String> mSpendingCategories,
-                                 ArrayList<String> mSpendingDates, ArrayList<String> mSpendingAmounts) {
-        this.mContext = mContext;
+    myRecyclerViewAdapter(ArrayList<String> mSpendingCategories,
+                          ArrayList<String> mSpendingDates, ArrayList<String> mSpendingAmounts) {
         this.mSpendingCategories = mSpendingCategories;
         this.mSpendingDates = mSpendingDates;
         this.mSpendingAmounts = mSpendingAmounts;
@@ -48,13 +45,13 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
         return mSpendingCategories.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView mCategory;
         TextView mDate;
         TextView mAmount;
 
-        public MyViewHolder(View v) {
+        MyViewHolder(View v) {
             super(v);
             mCategory = v.findViewById(R.id.categories);
             mDate = v.findViewById(R.id.spending_date);

@@ -14,15 +14,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    public static final String DATABASE_NAME = "spendings.dp";
-    public static final String TABLE_NAME = "spendings";
-    public static final String COL1 = "ID";
-    public static final String COL2 = "CATEGORY";
-    public static final String COL3 = "DATETIME";
-    public static final String COL4 = "AMOUNT";
-    public static final String COL5 = "COMMENT";
+    private static final String DATABASE_NAME = "spendings.dp";
+    private static final String TABLE_NAME = "spendings";
+    private static final String COL2 = "CATEGORY";
+    private static final String COL3 = "DATETIME";
+    private static final String COL4 = "AMOUNT";
+    private static final String COL5 = "COMMENT";
 
-    public DatabaseHelper(Context context) {
+    DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -41,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean addData(String category, String datetime, float amount, String comment){
+    boolean addData(String category, String datetime, float amount, String comment){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL2, category);
@@ -53,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return result != -1;
     }
 
-    public Cursor queryWholeDatabase(){
+    Cursor queryWholeDatabase(){
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY ID DESC", null);
     }
