@@ -37,8 +37,8 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initMyList();
         amountDB = new DatabaseHelper(this);
+        loadSpendings();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,33 +47,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 askUserInput();
             }
         });
-    }
-
-    public void addToDatabase(String cat, String date, float amount, String comment){
-        boolean insertionSuccessful = amountDB.addData(cat, date, amount, comment);
-        if (insertionSuccessful){
-            Toast.makeText(this, "Data insertion successful",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Data insertion failed!",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void reloadAllData() {
-        Cursor data = amountDB.queryWholeDatabase();
-        if (data.getCount() == 0){
-            String databaseLoadingResponse = "DB empty";
-        }
-        itemCategories.clear();
-        itemCreationDates.clear();
-        itemSpendingAmount.clear();
-        while (data.moveToNext()) {
-            itemCategories.add(data.getString(1));
-            String rawDateFormat = data.getString(2);
-            itemCreationDates.add(convertSQLiteDateToDisplay(rawDateFormat));
-            itemSpendingAmount.add(data.getString(3));
-        }
     }
 
     public void askUserInput() {
@@ -99,8 +72,7 @@ public class ScrollingActivity extends AppCompatActivity {
                                 float amount = Float.parseFloat(amountString);
 
                                 addToDatabase(category, dateSQLiteStamp, amount, null);
-                                reloadAllData();
-                                reloadRecyclerView();
+                                loadSpendings();
                             }
                         })
                 .setNegativeButton("Cancel",
@@ -114,10 +86,15 @@ public class ScrollingActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public String currentDateDisplay(){
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd. MMM, HH:mm");
-        return dateFormat.format(calendar.getTime());
+    public void addToDatabase(String cat, String date, float amount, String comment) {
+        boolean insertionSuccessful = amountDB.addData(cat, date, amount, comment);
+        if (insertionSuccessful) {
+            Toast.makeText(this, "Data insertion successful",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Data insertion failed!",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     public String convertSQLiteDateToDisplay(String sqliteDateFormat){
@@ -141,11 +118,30 @@ public class ScrollingActivity extends AppCompatActivity {
         return dateFormat.format(calendar.getTime());
     }
 
-    public void initMyList() {
-        itemCategories.add("one");
-        itemCreationDates.add("11.Feb 19");
-        itemSpendingAmount.add("120");
+    public void loadSpendings() {
+        reloadAllData();
         reloadRecyclerView();
+    }
+
+    public void reloadAllData() {
+        Cursor data = amountDB.queryWholeDatabase();
+
+        itemCategories.clear();
+        itemCreationDates.clear();
+        itemSpendingAmount.clear();
+
+        if (data.getCount() == 0){
+            itemSpendingAmount.add(" ");
+            itemCreationDates.add(" ");
+            itemCategories.add("Add spendings!");
+        }
+        while (data.moveToNext()) {
+            // todo: when 12.50 is the amount, 12.5 will be displayed. Fix this
+            itemCategories.add(data.getString(1));
+            String rawDateFormat = data.getString(2);
+            itemCreationDates.add(convertSQLiteDateToDisplay(rawDateFormat));
+            itemSpendingAmount.add(data.getString(3));
+        }
     }
 
     private void reloadRecyclerView(){
