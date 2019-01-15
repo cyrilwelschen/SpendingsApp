@@ -1,6 +1,7 @@
 package com.example.cyrilwelschen.spendingsapp;
 
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -57,6 +58,21 @@ public class ScrollingActivity extends AppCompatActivity {
         }
     }
 
+    public void reloadAllData() {
+        Cursor data = amountDB.queryWholeDatabase();
+        if (data.getCount() == 0){
+            String databaseLoadingResponse = "DB empty";
+        }
+        itemCategories.clear();
+        itemCreationDates.clear();
+        itemSpendingAmount.clear();
+        while (data.moveToNext()) {
+            itemCategories.add(data.getString(1));
+            itemCreationDates.add(data.getString(2));
+            itemSpendingAmount.add(data.getString(3));
+        }
+    }
+
     public void askUserInput() {
         // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(this);
@@ -74,13 +90,17 @@ public class ScrollingActivity extends AppCompatActivity {
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                itemCategories.add(userInputCategory.getText().toString());
-                                itemSpendingAmount.add(userInputAmount.getText().toString());
-                                String dateStamp = currentDateDisplay();
-                                itemCreationDates.add(dateStamp);
-                                // todo: continue here with adding right format stuff to db
-                                initRecyclerView();
-                                // addToDatabase();
+                                String dateSQLiteStamp = currentDateSQLiteStamp();
+                                String currentDate = currentDateDisplay();
+                                String category = userInputCategory.getText().toString();
+                                String amountString = userInputAmount.getText().toString();
+                                float amount = Float.parseFloat(amountString);
+                                itemCategories.add(category);
+                                itemSpendingAmount.add(amountString);
+                                itemCreationDates.add(currentDate);
+                                addToDatabase(category, dateSQLiteStamp, amount, null);
+                                reloadAllData();
+                                reloadRecyclerView();
                             }
                         })
                 .setNegativeButton("Cancel",
@@ -100,30 +120,20 @@ public class ScrollingActivity extends AppCompatActivity {
         return dateFormat.format(calendar.getTime());
     }
 
+    public String currentDateSQLiteStamp(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS.SSS");
+        return dateFormat.format(calendar.getTime());
+    }
+
     public void initMyList() {
         itemCategories.add("one");
         itemCreationDates.add("11.Feb 19");
         itemSpendingAmount.add("120");
-        itemCategories.add("two");
-        itemCreationDates.add("12.Feb 19");
-        itemSpendingAmount.add("120.40");
-        itemCategories.add("one");
-        itemCreationDates.add("11.Feb 19");
-        itemSpendingAmount.add("7.50");
-        itemCategories.add("one");
-        itemCreationDates.add("11.Feb 19");
-        itemSpendingAmount.add("120");
-        itemCategories.add("one");
-        itemCreationDates.add("11.Feb 19");
-        itemSpendingAmount.add("120");
-        itemCategories.add("one");
-        itemCreationDates.add("11.Feb 19");
-        itemSpendingAmount.add("11");
-
-        initRecyclerView();
+        reloadRecyclerView();
     }
 
-    private void initRecyclerView(){
+    private void reloadRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
         myRecyclerViewAdapter adapter = new myRecyclerViewAdapter(this, itemCategories,
                 itemCreationDates, itemSpendingAmount);

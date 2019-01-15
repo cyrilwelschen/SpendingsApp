@@ -2,6 +2,7 @@ package com.example.cyrilwelschen.spendingsapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -30,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         // Datetime will have to saved in "YYYY-MM-DD HH:MM:SS.SSS" format as text
         String createTable = "CREATE TABLE " + TABLE_NAME +
                 " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + " CATEGORY TEXT, DATETIME TEXT, AMOUNT REAL, COMMENT TEXT";
+                + " CATEGORY TEXT, DATETIME TEXT, AMOUNT REAL, COMMENT TEXT)";
         db.execSQL(createTable);
     }
 
@@ -50,5 +51,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         long result = db.insert(TABLE_NAME, null, values);
         return result != -1;
+    }
+
+    public Cursor queryWholeDatabase(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 }
