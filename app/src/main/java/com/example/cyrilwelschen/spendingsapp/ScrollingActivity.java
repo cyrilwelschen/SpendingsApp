@@ -18,7 +18,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -68,7 +70,8 @@ public class ScrollingActivity extends AppCompatActivity {
         itemSpendingAmount.clear();
         while (data.moveToNext()) {
             itemCategories.add(data.getString(1));
-            itemCreationDates.add(data.getString(2));
+            String rawDateFormat = data.getString(2);
+            itemCreationDates.add(convertSQLiteDateToDisplay(rawDateFormat));
             itemSpendingAmount.add(data.getString(3));
         }
     }
@@ -91,13 +94,10 @@ public class ScrollingActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 String dateSQLiteStamp = currentDateSQLiteStamp();
-                                String currentDate = currentDateDisplay();
                                 String category = userInputCategory.getText().toString();
                                 String amountString = userInputAmount.getText().toString();
                                 float amount = Float.parseFloat(amountString);
-                                itemCategories.add(category);
-                                itemSpendingAmount.add(amountString);
-                                itemCreationDates.add(currentDate);
+
                                 addToDatabase(category, dateSQLiteStamp, amount, null);
                                 reloadAllData();
                                 reloadRecyclerView();
@@ -120,9 +120,24 @@ public class ScrollingActivity extends AppCompatActivity {
         return dateFormat.format(calendar.getTime());
     }
 
+    public String convertSQLiteDateToDisplay(String sqliteDateFormat){
+        // todo: simplify this method
+        SimpleDateFormat displayDateFormat = new SimpleDateFormat("dd. MMM, HH:mm");
+        SimpleDateFormat sqliteDate = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss.SSS");
+        Date date = new Date(12234);
+        try {
+            date = sqliteDate.parse(sqliteDateFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return displayDateFormat.format(calendar);
+    }
+
     public String currentDateSQLiteStamp(){
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS.SSS");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss.SSS");
         return dateFormat.format(calendar.getTime());
     }
 
