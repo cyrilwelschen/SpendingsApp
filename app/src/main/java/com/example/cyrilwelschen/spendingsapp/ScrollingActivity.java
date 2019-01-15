@@ -140,8 +140,42 @@ public class ScrollingActivity extends AppCompatActivity {
             itemCategories.add(data.getString(1));
             String rawDateFormat = data.getString(2);
             itemCreationDates.add(convertSQLiteDateToDisplay(rawDateFormat));
-            itemSpendingAmount.add(data.getString(3));
+            String amountFloatAsString = data.getString(3);
+            itemSpendingAmount.add(convertAmountToDisplayFormat(amountFloatAsString));
         }
+    }
+
+    private String convertAmountToDisplayFormat(String floatAsString) {
+        String[] parts = floatAsString.split("\\.");
+        try {
+            String wholeUnit = parts[0];
+            String fractionUnit = parts[1];
+            if (fractionUnit.length() == 1) {
+                fractionUnit = parts[1] + "0";
+            }
+            wholeUnit = hiphonTousands(wholeUnit);
+            return wholeUnit + "." + fractionUnit;
+        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            return  hiphonTousands(floatAsString);
+        }
+    }
+
+    private String hiphonTousands(String amountString) {
+        String result = amountString;
+        if (amountString.length() > 3) {
+            switch (amountString.length()) {
+                case 4:
+                    result = amountString.substring(0, 1) + "'" + amountString.substring(1, amountString.length());
+                    break;
+                case 5:
+                    result = amountString.substring(0, 2) + "'" + amountString.substring(2, amountString.length());
+                    break;
+                default:
+                    result = amountString;
+                    break;
+            }
+        }
+        return result;
     }
 
     private void reloadRecyclerView(){
