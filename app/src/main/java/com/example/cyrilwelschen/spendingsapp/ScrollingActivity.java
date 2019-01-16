@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -57,6 +58,9 @@ public class ScrollingActivity extends AppCompatActivity {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(dialogView);
+
+        GridView gridView = dialogView.findViewById(R.id.grid_view);
+        gridView.setAdapter(new ImageAdapter(this));
 
         final EditText userInputCategory = dialogView.findViewById(R.id.category_user_input);
         final EditText userInputAmount = dialogView.findViewById(R.id.amount_user_input);
