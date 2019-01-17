@@ -15,6 +15,9 @@
         android:text="@string/user_input_category_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <include layout="@layout/category_input_grid_item" />
+
+    <!--
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
@@ -25,6 +28,7 @@
         android:verticalSpacing="20dp"
         android:gravity="center">
     </GridView>
+    -->
 
     <EditText
         android:id="@+id/category_user_input"
