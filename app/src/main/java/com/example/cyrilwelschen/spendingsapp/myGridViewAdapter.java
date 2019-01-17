@@ -12,10 +12,10 @@ import android.widget.ImageView;
  *
  */
 
-public class ImageAdapter extends BaseAdapter {
+public class myGridViewAdapter extends BaseAdapter {
     private Context mContext;
 
-    ImageAdapter(Context c) {
+    myGridViewAdapter(Context c) {
         mContext = c;
     }
 
@@ -37,7 +37,7 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(370, 370));
+            imageView.setLayoutParams(new GridView.LayoutParams(180, 180));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
@@ -49,6 +49,10 @@ public class ImageAdapter extends BaseAdapter {
 
     // references to our images
     private Integer[] mThumbIds = {
-            R.drawable.bank, R.drawable.food, R.drawable.shooping
+            R.drawable.bank, R.drawable.food, R.drawable.shopping
+    };
+
+    private String[] mCategoryNameIds = {
+            "Bank", "Food", "Shopping"
     };
 }

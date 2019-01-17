@@ -60,7 +60,7 @@ public class ScrollingActivity extends AppCompatActivity {
         alertDialogBuilder.setView(dialogView);
 
         GridView gridView = dialogView.findViewById(R.id.grid_view);
-        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setAdapter(new myGridViewAdapter(this));
 
         final EditText userInputCategory = dialogView.findViewById(R.id.category_user_input);
         final EditText userInputAmount = dialogView.findViewById(R.id.amount_user_input);
@@ -185,7 +185,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private void reloadRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
-        myRecyclerViewAdapter adapter = new myRecyclerViewAdapter(itemCategories,
+        AmountMainViewAdapter adapter = new AmountMainViewAdapter(itemCategories,
                 itemCreationDates, itemSpendingAmount);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -13,13 +13,14 @@ import java.util.ArrayList;
  * Adapter to implement RecyclerView
  */
 
-public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.MyViewHolder> {
+public class AmountMainViewAdapter
+        extends RecyclerView.Adapter<AmountMainViewAdapter.AmountViewHolder> {
 
     private ArrayList<String> mSpendingCategories = new ArrayList<>();
     private ArrayList<String> mSpendingDates = new ArrayList<>();
     private ArrayList<String> mSpendingAmounts = new ArrayList<>();
 
-    myRecyclerViewAdapter(ArrayList<String> mSpendingCategories,
+    AmountMainViewAdapter(ArrayList<String> mSpendingCategories,
                           ArrayList<String> mSpendingDates, ArrayList<String> mSpendingAmounts) {
         this.mSpendingCategories = mSpendingCategories;
         this.mSpendingDates = mSpendingDates;
@@ -27,14 +28,14 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AmountViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem,
                 parent, false);
-        return new MyViewHolder(v);
+        return new AmountViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(AmountViewHolder holder, int position) {
         holder.mCategory.setText(mSpendingCategories.get(position));
         holder.mDate.setText(mSpendingDates.get(position));
         holder.mAmount.setText(mSpendingAmounts.get(position));
@@ -45,13 +46,13 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
         return mSpendingCategories.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class AmountViewHolder extends RecyclerView.ViewHolder {
 
         TextView mCategory;
         TextView mDate;
         TextView mAmount;
 
-        MyViewHolder(View v) {
+        AmountViewHolder(View v) {
             super(v);
             mCategory = v.findViewById(R.id.categories);
             mDate = v.findViewById(R.id.spending_date);
