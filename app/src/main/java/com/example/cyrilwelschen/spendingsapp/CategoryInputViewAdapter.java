@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by cyril on 04.02.19.
@@ -20,12 +21,14 @@ public class CategoryInputViewAdapter extends RecyclerView.Adapter<CategoryInput
     private int[] mDrawable;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private Context mContext;
 
     // data is passed into the constructor
     CategoryInputViewAdapter(Context context, String[] data, int[] drawable) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mDrawable = drawable;
+        this.mContext = context;
     }
 
     // inflates the cell layout from xml when needed
@@ -65,6 +68,7 @@ public class CategoryInputViewAdapter extends RecyclerView.Adapter<CategoryInput
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            Toast.makeText(mContext, "Clicked item " + Integer.toString(getAdapterPosition()), Toast.LENGTH_SHORT).show();
         }
     }
 
