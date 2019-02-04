@@ -57,10 +57,11 @@ public class ScrollingActivity extends AppCompatActivity {
 
         // data to populate the RecyclerView with
         String[] data = {"Komisionen", "Essen(aus)", "NiceToHave", "Rechnung"};
+        int[] drawable = {R.drawable.shopping, R.drawable.food, R.drawable.nice_to_have, R.drawable.bank};
         // set up the RecyclerView
         RecyclerView recyclerView = dialogView.findViewById(R.id.category_input_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        CategoryInputViewAdapter adapter = new CategoryInputViewAdapter(this, data);
+        CategoryInputViewAdapter adapter = new CategoryInputViewAdapter(this, data, drawable);
         recyclerView.setAdapter(adapter);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

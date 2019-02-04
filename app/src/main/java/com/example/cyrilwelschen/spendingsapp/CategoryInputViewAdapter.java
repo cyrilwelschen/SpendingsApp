@@ -17,13 +17,15 @@ import android.widget.TextView;
 public class CategoryInputViewAdapter extends RecyclerView.Adapter<CategoryInputViewAdapter.ViewHolder> {
 
     private String[] mData;
+    private int[] mDrawable;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    CategoryInputViewAdapter(Context context, String[] data) {
+    CategoryInputViewAdapter(Context context, String[] data, int[] drawable) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.mDrawable = drawable;
     }
 
     // inflates the cell layout from xml when needed
@@ -38,7 +40,7 @@ public class CategoryInputViewAdapter extends RecyclerView.Adapter<CategoryInput
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.myTextView.setText(mData[position]);
-        holder.myImageView.setImageResource(R.drawable.bank);
+        holder.myImageView.setImageResource(mDrawable[position]);
     }
 
     // total number of cells
