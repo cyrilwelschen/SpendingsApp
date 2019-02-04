@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -13,14 +14,14 @@ import android.widget.TextView;
  *
  */
 
-public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.ViewHolder> {
+public class CategoryInputViewAdapter extends RecyclerView.Adapter<CategoryInputViewAdapter.ViewHolder> {
 
     private String[] mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    myRecyclerViewAdapter(Context context, String[] data) {
+    CategoryInputViewAdapter(Context context, String[] data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -37,6 +38,7 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.myTextView.setText(mData[position]);
+        holder.myImageView.setImageResource(R.drawable.bank);
     }
 
     // total number of cells
@@ -49,10 +51,12 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
+        ImageView myImageView;
 
         ViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.info_text);
+            myImageView = itemView.findViewById(R.id.category_image_view);
             itemView.setOnClickListener(this);
         }
 

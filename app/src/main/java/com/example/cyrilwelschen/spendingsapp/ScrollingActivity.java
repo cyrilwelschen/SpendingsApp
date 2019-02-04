@@ -56,11 +56,11 @@ public class ScrollingActivity extends AppCompatActivity {
         @SuppressLint("InflateParams") View dialogView = li.inflate(R.layout.input_dialog, null);
 
         // data to populate the RecyclerView with
-        String[] data = {"1", "2", "3", "4", "5", "6", "7", "ads", "lkj", "wer"};
+        String[] data = {"Komisionen", "Essen(aus)", "NiceToHave", "Rechnung"};
         // set up the RecyclerView
         RecyclerView recyclerView = dialogView.findViewById(R.id.category_input_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        myRecyclerViewAdapter adapter = new myRecyclerViewAdapter(this, data);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        CategoryInputViewAdapter adapter = new CategoryInputViewAdapter(this, data);
         recyclerView.setAdapter(adapter);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
