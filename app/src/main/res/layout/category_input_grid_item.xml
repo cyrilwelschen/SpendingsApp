@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- todo: shouldn't be gridlayout, but relative. Grid is introduced with layoutmanager see "android recyclerview and gridlayout" on stackoverflow -->
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="com.example.cyrilwelschen.spendingsapp.ScrollingActivity"
-    tools:showIn="@layout/input_dialog">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="50dp"
+    android:layout_height="50dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/category_input_recycler_view"
+    <TextView
+        android:id="@+id/info_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
-
-</GridLayout>
+        android:layout_height="match_parent"
+        android:gravity="center"/>
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +18,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -52,15 +52,19 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     public void askUserInput() {
-        // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(this);
         @SuppressLint("InflateParams") View dialogView = li.inflate(R.layout.input_dialog, null);
 
+        // data to populate the RecyclerView with
+        String[] data = {"1", "2", "3", "4", "5", "6", "7", "ads", "lkj", "wer"};
+        // set up the RecyclerView
+        RecyclerView recyclerView = dialogView.findViewById(R.id.category_input_recycler_view);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        myRecyclerViewAdapter adapter = new myRecyclerViewAdapter(this, data);
+        recyclerView.setAdapter(adapter);
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(dialogView);
-
-        GridView gridView = dialogView.findViewById(R.id.grid_view);
-        gridView.setAdapter(new myGridViewAdapter(this));
 
         final EditText userInputCategory = dialogView.findViewById(R.id.category_user_input);
         final EditText userInputAmount = dialogView.findViewById(R.id.amount_user_input);

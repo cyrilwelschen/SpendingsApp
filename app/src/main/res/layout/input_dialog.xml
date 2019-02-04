@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_root"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="5dp" >
 
     <TextView
         android:id="@+id/category_input_label"
@@ -15,20 +15,7 @@
         android:text="@string/user_input_category_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <include layout="@layout/category_input_grid_item" />
-
-    <!--
-    <GridView
-        android:id="@+id/grid_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="auto_fit"
-        android:columnWidth="60dp"
-        android:horizontalSpacing="20dp"
-        android:verticalSpacing="20dp"
-        android:gravity="center">
-    </GridView>
-    -->
+    <include layout="@layout/category_input_gird" />
 
     <EditText
         android:id="@+id/category_user_input"
@@ -36,52 +23,6 @@
         android:layout_height="wrap_content" >
         <requestFocus />
     </EditText>
-
-    <!--
-    <GridLayout
-        android:columnCount="3"
-        android:rowCount="2"
-        android:padding="14dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/std_cat1"
-        android:layout_margin="15dp"
-        android:src="@mipmap/standard_category"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/std_cat2"
-        android:layout_margin="15dp"
-        android:src="@mipmap/standard_category"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/std_cat3"
-        android:layout_margin="15dp"
-        android:src="@mipmap/standard_category"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/std_cat4"
-        android:layout_margin="15dp"
-        android:src="@mipmap/standard_category"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/std_cat5"
-        android:layout_margin="15dp"
-        android:src="@mipmap/standard_category"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/std_cat6"
-        android:layout_margin="15dp"
-        android:src="@mipmap/standard_category"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
-    </GridLayout>
-    -->
 
     <TextView
         android:id="@+id/amount_input_label"
