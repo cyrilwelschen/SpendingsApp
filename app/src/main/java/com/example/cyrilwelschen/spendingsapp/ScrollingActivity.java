@@ -1,6 +1,7 @@
 package com.example.cyrilwelschen.spendingsapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
@@ -31,9 +32,11 @@ public class ScrollingActivity extends AppCompatActivity {
     ArrayList<String> itemSpendingAmount = new ArrayList<>();
 
     DatabaseHelper amountDB;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mContext = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -51,24 +54,62 @@ public class ScrollingActivity extends AppCompatActivity {
         });
     }
 
+    private String[] CategoryChoices() {
+        final String[] choices = {"Komisionen", "Auswärts", "NiceToHave", "Rechnung"};
+        return choices;
+    }
+
+    private int CategoryNameToDrawable(String categoryName) {
+        int drawable = R.mipmap.standard_category;
+        switch (categoryName) {
+            case "Komisionen":
+                drawable = R.drawable.shopping;
+                break;
+            case "Auswärts":
+                drawable = R.drawable.food;
+                break;
+            case "NiceToHave":
+                drawable = R.drawable.nice_to_have;
+                break;
+            case "Rechnung":
+                drawable = R.drawable.bank;
+                break;
+        }
+        return drawable;
+    }
+
+    private int[] CategoryArrayToDrawableIdArray(String[] data) {
+        int[] returnArray = new int[data.length];
+        for (int l = 0; l < data.length; l++) {
+            returnArray[l] = CategoryNameToDrawable(data[l]);
+        }
+        return returnArray;
+    }
+
     public void askUserInput() {
         LayoutInflater li = LayoutInflater.from(this);
         @SuppressLint("InflateParams") View dialogView = li.inflate(R.layout.input_dialog, null);
 
+        final EditText userInputCategory = dialogView.findViewById(R.id.category_user_input);
+        final EditText userInputAmount = dialogView.findViewById(R.id.amount_user_input);
+
         // data to populate the RecyclerView with
-        String[] data = {"Komisionen", "Essen(aus)", "NiceToHave", "Rechnung"};
-        int[] drawable = {R.drawable.shopping, R.drawable.food, R.drawable.nice_to_have, R.drawable.bank};
+        final String[] data = CategoryChoices();
+        int[] drawable = CategoryArrayToDrawableIdArray(data);
         // set up the RecyclerView
         RecyclerView recyclerView = dialogView.findViewById(R.id.category_input_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         CategoryInputViewAdapter adapter = new CategoryInputViewAdapter(this, data, drawable);
+        adapter.setClickListener(new CategoryInputViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                userInputCategory.setText(data[position]);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(dialogView);
-
-        final EditText userInputCategory = dialogView.findViewById(R.id.category_user_input);
-        final EditText userInputAmount = dialogView.findViewById(R.id.amount_user_input);
 
         // set dialog message
         alertDialogBuilder
@@ -99,8 +140,9 @@ public class ScrollingActivity extends AppCompatActivity {
     public void addToDatabase(String cat, String date, float amount) {
         boolean insertionSuccessful = amountDB.addData(cat, date, amount, null);
         if (insertionSuccessful) {
-            Toast.makeText(this, "Data insertion successful",
-                    Toast.LENGTH_SHORT).show();
+            // don't show toast if successful
+            @SuppressLint("ShowToast") Toast toast = Toast.makeText(this,
+                    "Data insertion successful", Toast.LENGTH_SHORT);
         } else {
             Toast.makeText(this, "Data insertion failed!",
                     Toast.LENGTH_SHORT).show();

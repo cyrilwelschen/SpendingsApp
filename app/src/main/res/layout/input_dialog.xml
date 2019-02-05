@@ -20,9 +20,7 @@
     <EditText
         android:id="@+id/category_user_input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <requestFocus />
-    </EditText>
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/amount_input_label"
@@ -35,5 +33,7 @@
         android:id="@+id/amount_user_input"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <requestFocus />
+    </EditText>
 </LinearLayout>

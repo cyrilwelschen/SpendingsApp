@@ -52,7 +52,6 @@ public class CategoryInputViewAdapter extends RecyclerView.Adapter<CategoryInput
         return mData.length;
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
@@ -68,7 +67,6 @@ public class CategoryInputViewAdapter extends RecyclerView.Adapter<CategoryInput
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-            Toast.makeText(mContext, "Clicked item " + Integer.toString(getAdapterPosition()), Toast.LENGTH_SHORT).show();
         }
     }
 
