@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -27,7 +29,8 @@ import java.util.Date;
 
 public class ScrollingActivity extends AppCompatActivity {
 
-    ArrayList<String> itemCategories = new ArrayList<>();
+    ArrayList<String> itemDescription = new ArrayList<>();
+    ArrayList<Drawable> itemCategoryDrawable = new ArrayList<>();
     ArrayList<String> itemCreationDates = new ArrayList<>();
     ArrayList<String> itemSpendingAmount = new ArrayList<>();
 
@@ -180,22 +183,24 @@ public class ScrollingActivity extends AppCompatActivity {
     public void reloadAllData() {
         Cursor data = amountDB.queryWholeDatabase();
 
-        itemCategories.clear();
+        itemDescription.clear();
+        itemCategoryDrawable.clear();
         itemCreationDates.clear();
         itemSpendingAmount.clear();
 
         if (data.getCount() == 0){
             itemSpendingAmount.add(" ");
+            itemCategoryDrawable.add(getResources().getDrawable(R.drawable.ic_launcher_foreground));
             itemCreationDates.add(" ");
-            itemCategories.add("Add spendings!");
+            itemDescription.add("Add spendings!");
         }
         while (data.moveToNext()) {
-            // todo: when 12.50 is the amount, 12.5 will be displayed. Fix this
-            itemCategories.add(data.getString(1));
+            itemCategoryDrawable.add(getResources().getDrawable(CategoryNameToDrawable(data.getString(1))));
             String rawDateFormat = data.getString(2);
             itemCreationDates.add(convertSQLiteDateToDisplay(rawDateFormat));
             String amountFloatAsString = data.getString(3);
             itemSpendingAmount.add(convertAmountToDisplayFormat(amountFloatAsString));
+            itemDescription.add(data.getString(4));
         }
     }
 
@@ -234,8 +239,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private void reloadRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
-        AmountMainViewAdapter adapter = new AmountMainViewAdapter(itemCategories,
-                itemCreationDates, itemSpendingAmount);
+        AmountMainViewAdapter adapter = new AmountMainViewAdapter(itemDescription,
+                itemCreationDates, itemSpendingAmount, itemCategoryDrawable);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
