@@ -95,4 +95,5 @@
     <string name="dummy_spending_amount">100.10</string>
     <string name="user_input_category_label">Category</string>
     <string name="user_input_amount_label">Amount</string>
+    <string name="user_input_description_label">Description</string>
 </resources>

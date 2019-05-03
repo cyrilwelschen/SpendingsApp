@@ -91,6 +91,7 @@ public class ScrollingActivity extends AppCompatActivity {
         @SuppressLint("InflateParams") View dialogView = li.inflate(R.layout.input_dialog, null);
 
         final EditText userInputCategory = dialogView.findViewById(R.id.category_user_input);
+        final EditText userInputDescription = dialogView.findViewById(R.id.description_user_input);
         final EditText userInputAmount = dialogView.findViewById(R.id.amount_user_input);
 
         // data to populate the RecyclerView with
@@ -119,10 +120,11 @@ public class ScrollingActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog,int id) {
                                 String dateSQLiteStamp = currentDateSQLiteStamp();
                                 String category = userInputCategory.getText().toString();
+                                String description = userInputDescription.getText().toString();
                                 String amountString = userInputAmount.getText().toString();
                                 float amount = Float.parseFloat(amountString);
 
-                                addToDatabase(category, dateSQLiteStamp, amount);
+                                addToDatabase(category, description, dateSQLiteStamp, amount);
                                 loadSpendings();
                             }
                         })
@@ -137,8 +139,8 @@ public class ScrollingActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void addToDatabase(String cat, String date, float amount) {
-        boolean insertionSuccessful = amountDB.addData(cat, date, amount, null);
+    public void addToDatabase(String cat, String desc, String date, float amount) {
+        boolean insertionSuccessful = amountDB.addData(cat, date, amount, desc);
         if (insertionSuccessful) {
             // don't show toast if successful
             @SuppressLint("ShowToast") Toast toast = Toast.makeText(this,
