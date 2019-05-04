@@ -34,7 +34,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
         Intent intentShop= new Intent(context, SecondaryInputActivity.class);
         PendingIntent pendingIntentShop = PendingIntent.getActivity(context, 0, intentShop, 0);
-        views.setOnClickPendingIntent(R.id.widget_button_food, pendingIntentShop);
+        views.setOnClickPendingIntent(R.id.widget_button_shopping, pendingIntentShop);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

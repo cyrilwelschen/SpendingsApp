@@ -39,6 +39,14 @@
             android:src="@drawable/shopping" />
 
         <ImageView
+            android:id="@+id/widget_button_nice"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/nice_to_have" />
+
+        <ImageView
             android:id="@+id/widget_button_bank"
             android:layout_width="60dp"
             android:layout_height="50dp"
@@ -46,13 +54,6 @@
             android:layout_weight="1"
             android:src="@drawable/bank" />
 
-        <ImageView
-            android:id="@+id/widget_button_nice"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:src="@drawable/nice_to_have" />
     </LinearLayout>
 
 </LinearLayout>
