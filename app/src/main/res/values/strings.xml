@@ -97,4 +97,5 @@
     <string name="user_input_amount_label">Amount</string>
     <string name="user_input_description_label">Description</string>
     <string name="hello_world">hello World</string>
+    <string name="widget_header_text">Spendings category</string>
 </resources>
