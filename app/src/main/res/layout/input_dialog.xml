@@ -26,8 +26,9 @@
         android:id="@+id/description_input_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="13dp"
         android:text="@string/user_input_description_label"
-        android:textSize="22sp" />
+        android:textSize="19sp" />
 
     <EditText
         android:id="@+id/description_user_input"
@@ -40,10 +41,11 @@
 
     <TextView
         android:id="@+id/amount_input_label"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="6dp"
         android:text="@string/user_input_amount_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="19sp" />
 
     <EditText
         android:id="@+id/amount_user_input"
