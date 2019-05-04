@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.widget.RemoteViews;
 
 /**
@@ -29,11 +28,13 @@ public class WidgetProvider extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget_layout);
         // Construct an Intent object includes web adresss.
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://erenutku.com"));
-        // In widget we are not allowing to use intents as usually. We have to use PendingIntent instead of 'startActivity'
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        // Here the basic operations the remote view can do.
-        views.setOnClickPendingIntent(R.id.widget_button_food, pendingIntent);
+        Intent intentFood = new Intent(context, ScrollingActivity.class);
+        PendingIntent pendingIntentFood = PendingIntent.getActivity(context, 0, intentFood, 0);
+        views.setOnClickPendingIntent(R.id.widget_button_food, pendingIntentFood);
+
+        Intent intentShop= new Intent(context, SecondaryInputActivity.class);
+        PendingIntent pendingIntentShop = PendingIntent.getActivity(context, 0, intentShop, 0);
+        views.setOnClickPendingIntent(R.id.widget_button_food, pendingIntentShop);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

@@ -98,4 +98,7 @@
     <string name="user_input_description_label">Description</string>
     <string name="hello_world">hello World</string>
     <string name="widget_header_text">Spendings category</string>
+    <string name="test_text">test text</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>
