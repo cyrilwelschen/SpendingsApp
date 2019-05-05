@@ -27,14 +27,29 @@ public class WidgetProvider extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget_layout);
-        // Construct an Intent object includes web adresss.
-        Intent intentFood = new Intent(context, ScrollingActivity.class);
-        PendingIntent pendingIntentFood = PendingIntent.getActivity(context, 0, intentFood, 0);
-        views.setOnClickPendingIntent(R.id.widget_button_food, pendingIntentFood);
+
+        // todo: somehow this doesn't work any more, maybe error is in SecondaryInputActivity.java
+        Intent intentFood= new Intent(context, SecondaryInputActivity.class);
+        intentFood.putExtra("CATEGORY", "Komisionen");
+        PendingIntent pendingIntentFood = PendingIntent.getActivity(context, 0, intentFood, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent intentShop= new Intent(context, SecondaryInputActivity.class);
-        PendingIntent pendingIntentShop = PendingIntent.getActivity(context, 0, intentShop, 0);
-        views.setOnClickPendingIntent(R.id.widget_button_shopping, pendingIntentShop);
+        intentShop.putExtra("CATEGORY", "Shopping");
+        PendingIntent pendingIntentShop = PendingIntent.getActivity(context, 0, intentShop, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent intentNice= new Intent(context, SecondaryInputActivity.class);
+        intentNice.putExtra("CATEGORY", "NiceToHave");
+        PendingIntent pendingIntentNice = PendingIntent.getActivity(context, 0, intentNice, 0);
+
+        Intent intentBank= new Intent(context, SecondaryInputActivity.class);
+        intentBank.putExtra("CATEGORY", "Rechnung");
+        PendingIntent pendingIntentBank = PendingIntent.getActivity(context, 0, intentBank, 0);
+
+        views.setOnClickPendingIntent(R.id.widget_button_food, pendingIntentFood);
+        views.setOnClickPendingIntent(R.id.widget_button_shop, pendingIntentShop);
+        views.setOnClickPendingIntent(R.id.widget_button_nice, pendingIntentNice);
+        views.setOnClickPendingIntent(R.id.widget_button_bank, pendingIntentBank);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

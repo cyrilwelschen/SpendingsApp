@@ -5,8 +5,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category" />
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/secActivityCatImage"
         android:layout_width="match_parent"
         android:layout_height="136dp"
         app:srcCompat="@mipmap/standard_category_round" />

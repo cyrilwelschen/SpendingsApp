@@ -61,7 +61,7 @@ public class ScrollingActivity extends AppCompatActivity {
         return choices;
     }
 
-    private int CategoryNameToDrawable(String categoryName) {
+    public int CategoryNameToDrawable(String categoryName) {
         int drawable = R.mipmap.standard_category;
         switch (categoryName) {
             case "Komisionen":
